@@ -222,12 +222,14 @@ void PlugEdit::sliderValueChanged (Slider* sliderThatWasMoved)
     {
         //[UserSliderCode_slider_y] -- add your slider handling code here..
 		float valueToSend = (sliderThatWasMoved->getValue() + 10) / 20;
+		processor.setParameterNotifyingHost(1, valueToSend);
         //[/UserSliderCode_slider_y]
     }
     else if (sliderThatWasMoved == slider_z.get())
     {
         //[UserSliderCode_slider_z] -- add your slider handling code here..
 		float valueToSend = (sliderThatWasMoved->getValue() + 10) / 20;
+		processor.setParameterNotifyingHost(2, valueToSend);
         //[/UserSliderCode_slider_z]
     }
 

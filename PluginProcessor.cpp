@@ -28,19 +28,19 @@ PluginwithGuiAudioProcessor::PluginwithGuiAudioProcessor()
 
 	addParameter(val_x=new AudioParameterFloat("val_x", // parameter ID
 												"val_x", // parameter name
-												0.0f,   // minimum value
-												1.0f,   // maximum value
-												0.5f)); // default value)
+												0.000f,   // minimum value
+												1.000f,   // maximum value
+												0.500f)); // default value)
 	addParameter(val_y = new AudioParameterFloat("val_y", 
 												"val_y", 
-												0.0f,   
-												1.0f,   
-												0.5f)); 
+												0.000f,   
+												1.000f,   
+												0.500f)); 
 	addParameter(val_z = new AudioParameterFloat("val_z", 
 												"val_z",
-												0.0f,   
-												1.0f,   
-												0.5f)); 
+												0.000f,   
+												1.000f,   
+												0.500f)); 
 
 }
 
