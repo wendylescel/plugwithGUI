@@ -75,6 +75,8 @@ private:
     std::unique_ptr<Label> lab_z;
     std::unique_ptr<TextButton> but_start;
     std::unique_ptr<TextButton> but_stop;
+	std::unique_ptr<TextButton> but_stop2;
+	std::unique_ptr<Label> label;
     Image cachedImage_logo_png_1;
 
 

@@ -43,6 +43,7 @@ public:
     bool producesMidi() const override;
     bool isMidiEffect() const override;
     double getTailLengthSeconds() const override;
+	
 
     //==============================================================================
     int getNumPrograms() override;
@@ -54,6 +55,7 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+	double tempo;
 
 private:
     //==============================================================================
@@ -62,6 +64,10 @@ private:
 	AudioParameterFloat* val_x;
 	AudioParameterFloat* val_y;
 	AudioParameterFloat* val_z;
+	AudioPlayHead* playHead;
+	AudioPlayHead::CurrentPositionInfo currentPositionInfo;
+	
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginwithGuiAudioProcessor)
 };

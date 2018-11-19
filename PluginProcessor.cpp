@@ -40,7 +40,7 @@ PluginwithGuiAudioProcessor::PluginwithGuiAudioProcessor()
 												"val_z",
 												0.000f,   
 												1.000f,   
-												0.500f)); 
+												0.500f));
 
 }
 
@@ -153,7 +153,12 @@ bool PluginwithGuiAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void PluginwithGuiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    /*ScopedNoDenormals noDenormals;
+	playHead = this->getPlayHead();
+	
+	if (playHead != nullptr && playHead->getCurrentPosition(currentPositionInfo)){
+		tempo = currentPositionInfo.bpm;
+	};
+   /* ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 

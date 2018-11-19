@@ -21,8 +21,7 @@
 //[/Headers]
 
 #include "PlugEdit.h"
-
-
+#include <string>
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 
 
@@ -133,6 +132,27 @@ PlugEdit::PlugEdit (PluginwithGuiAudioProcessor& p)
 
     but_stop->setBounds (568, 128, 80, 24);
 
+	but_stop2.reset(new TextButton("but_stop"));
+	addAndMakeVisible(but_stop2.get());
+	but_stop2->setButtonText(TRANS("BMP"));
+	but_stop2->addListener(this);
+	but_stop2->setColour(TextButton::buttonColourId, Colours::crimson);
+	but_stop2->setColour(TextButton::buttonOnColourId, Colours::crimson);
+	but_stop2->setColour(TextButton::textColourOffId, Colours::black);
+
+	but_stop2->setBounds(416, 96, 80, 24);
+
+	label.reset(new Label("new label",
+		TRANS("Hello World")));
+	addAndMakeVisible(label.get());
+	label->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
+	label->setJustificationType(Justification::centredLeft);
+	label->setEditable(false, false, false);
+	label->setColour(TextEditor::textColourId, Colours::black);
+	label->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
+
+	label->setBounds(416, 128, 150, 24);
+
     cachedImage_logo_png_1 = ImageCache::getFromMemory (logo_png, logo_pngSize);
 
     //[UserPreSize]
@@ -160,7 +180,8 @@ PlugEdit::~PlugEdit()
     lab_z = nullptr;
     but_start = nullptr;
     but_stop = nullptr;
-
+	but_stop2 = nullptr;
+	label = nullptr;
 
     //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]
@@ -211,21 +232,21 @@ void PlugEdit::sliderValueChanged (Slider* sliderThatWasMoved)
     //[UsersliderValueChanged_Pre]
     //[/UsersliderValueChanged_Pre]
 
-    if (sliderThatWasMoved == slider_x.get())
+    if (sliderThatWasMoved == slider_x.get() && (*but_start).getToggleState() == true)
     {
         //[UserSliderCode_slider_x] -- add your slider handling code here..
 		float valueToSend = (sliderThatWasMoved->getValue() + 10) / 20;
 		processor.setParameterNotifyingHost(0, valueToSend);
         //[/UserSliderCode_slider_x]
     }
-    else if (sliderThatWasMoved == slider_y.get())
+    else if (sliderThatWasMoved == slider_y.get() && (*but_start).getToggleState() == true)
     {
         //[UserSliderCode_slider_y] -- add your slider handling code here..
 		float valueToSend = (sliderThatWasMoved->getValue() + 10) / 20;
 		processor.setParameterNotifyingHost(1, valueToSend);
         //[/UserSliderCode_slider_y]
     }
-    else if (sliderThatWasMoved == slider_z.get())
+    else if (sliderThatWasMoved == slider_z.get() && (*but_start).getToggleState() == true)
     {
         //[UserSliderCode_slider_z] -- add your slider handling code here..
 		float valueToSend = (sliderThatWasMoved->getValue() + 10) / 20;
@@ -236,6 +257,7 @@ void PlugEdit::sliderValueChanged (Slider* sliderThatWasMoved)
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
 }
+
 
 void PlugEdit::buttonClicked (Button* buttonThatWasClicked)
 {
@@ -251,13 +273,18 @@ void PlugEdit::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_but_start] -- add your button handler code here..
         //[/UserButtonCode_but_start]
+        (*but_start).setToggleState(true, dontSendNotification);
     }
     else if (buttonThatWasClicked == but_stop.get())
     {
         //[UserButtonCode_but_stop] -- add your button handler code here..
         //[/UserButtonCode_but_stop]
+        (*but_start).setToggleState(false, dontSendNotification);
     }
-
+	else if (buttonThatWasClicked == but_stop2.get())                                                      
+	{
+		label->setText(std::to_string(processor.tempo), dontSendNotification);                        
+	}
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
 }
